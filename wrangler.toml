@@ -1,0 +1,19 @@
+# Configuração do Cloudflare Worker
+# Após criar o KV namespace, adicione o ID aqui
+
+name = "usabilidade-api"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# Crie o KV namespace com: wrangler kv:namespace create "CLICKS"
+# Depois adicione o ID abaixo
+[[kv_namespaces]]
+binding = "CLICKS"
+id = "SEU_KV_NAMESPACE_ID_AQUI"
+
+# Para criar o KV namespace:
+# 1. Instale wrangler: npm install -g wrangler
+# 2. Faça login: wrangler login
+# 3. Crie o namespace: wrangler kv:namespace create "CLICKS"
+# 4. Copie o ID retornado e cole acima
+# 5. Deploy: wrangler deploy

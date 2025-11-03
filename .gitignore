@@ -3,18 +3,21 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
 
 # Environment
 .env
+.env.*
+!.env.example
 .env.local
 .env.production
 
 # Cloudflare
 .wrangler/
-wrangler.toml
 
 # IDE
 .vscode/
+.vscode-test
 .idea/
 *.swp
 *.swo
@@ -27,3 +30,26 @@ Thumbs.db
 # Build
 dist/
 build/
+out/
+.next
+.nuxt
+
+# Cache
+.cache/
+.parcel-cache
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# Testing
+coverage
+*.lcov
+.nyc_output
+
+# Misc
+logs
+*.log
+*.pid
+*.seed
+*.pid.lock
+.temp
