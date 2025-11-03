@@ -44,31 +44,11 @@
             margin-bottom: 30px;
         }
 
-        .porcentagem {
-            font-size: 72px;
-            color: #ff4757;
-            font-weight: bold;
-            margin: 30px 0;
-        }
-
         p {
             font-size: 24px;
             color: #57606f;
             line-height: 1.6;
-        }
-
-        .stats {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-size: 16px;
-            color: #2f3542;
-        }
-
-        .stats p {
-            font-size: 16px;
-            margin: 10px 0;
+            margin: 20px 0;
         }
 
         .voltar {
@@ -102,20 +82,8 @@
                 font-size: 24px;
             }
 
-            .porcentagem {
-                font-size: 56px;
-            }
-
             p {
                 font-size: 20px;
-            }
-
-            .stats {
-                font-size: 14px;
-            }
-
-            .stats p {
-                font-size: 14px;
             }
         }
 
@@ -135,23 +103,8 @@
                 margin-bottom: 20px;
             }
 
-            .porcentagem {
-                font-size: 48px;
-                margin: 20px 0;
-            }
-
             p {
                 font-size: 18px;
-            }
-
-            .stats {
-                padding: 15px;
-                font-size: 13px;
-            }
-
-            .stats p {
-                font-size: 13px;
-                margin: 8px 0;
             }
 
             .voltar {
@@ -165,70 +118,8 @@
     <div class="container">
         <h1>NÃO LEU????</h1>
         <h2>Erro de usabilidade!</h2>
-        <div class="porcentagem" id="porcentagem">
-            <span id="percentValue">...</span>%
-        </div>
-        <p>dos usuários clicaram nesse botão que não era para clicar!</p>
-        
-        <div class="stats" id="stats">
-            <p><strong>Carregando estatísticas reais...</strong></p>
-        </div>
-        
+        <p>Você clicou no botão que não era para clicar!</p>
         <a href="index.html" class="voltar">Voltar</a>
     </div>
-
-    <script>
-        async function carregarEstatisticas() {
-            try {
-                // Tenta buscar do servidor
-                const response = await fetch('/api/stats');
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    
-                    // Atualiza a porcentagem
-                    const porcentagem = Math.round((data.totalClicks / data.totalVisitors) * 100);
-                    document.getElementById('percentValue').textContent = porcentagem;
-                    
-                    // Atualiza as estatísticas
-                    document.getElementById('stats').innerHTML = `
-                        <p><strong>📊 Estatísticas Reais</strong></p>
-                        <p>Total de visitantes: ${data.totalVisitors}</p>
-                        <p>Total de cliques: ${data.totalClicks}</p>
-                        <p>Visitantes únicos (IPs): ${data.uniqueIPs}</p>
-                    `;
-                } else {
-                    throw new Error('API não disponível');
-                }
-            } catch (error) {
-                console.log('Usando dados locais');
-                // Fallback para dados locais simulados
-                usarDadosLocais();
-            }
-        }
-
-        function usarDadosLocais() {
-            // Pega dados do localStorage
-            let clicks = JSON.parse(localStorage.getItem('allClicks') || '[]');
-            let uniqueIPs = new Set(clicks.map(c => c.ip)).size;
-            
-            // Simula visitantes (assumindo que 60-80% não clicam)
-            let totalClicks = clicks.length || 1;
-            let estimatedVisitors = Math.round(totalClicks / 0.7); // Assume 70% clicaram
-            let porcentagem = Math.round((totalClicks / estimatedVisitors) * 100);
-            
-            document.getElementById('percentValue').textContent = porcentagem;
-            
-            document.getElementById('stats').innerHTML = `
-                <p><strong>📊 Estatísticas</strong></p>
-                <p>Total de cliques registrados: ${totalClicks}</p>
-                <p>Visitantes únicos (IPs): ${uniqueIPs || 'N/A'}</p>
-                <p><em>⚠️ API em configuração - dados parciais</em></p>
-            `;
-        }
-
-        // Carrega as estatísticas ao abrir a página
-        carregarEstatisticas();
-    </script>
 </body>
 </html>
