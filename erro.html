@@ -61,11 +61,28 @@
             border-radius: 10px;
             font-weight: bold;
             transition: all 0.3s ease;
+            margin: 10px;
         }
 
         .voltar:hover {
             background-color: #3742fa;
             transform: scale(1.05);
+        }
+
+        .voltar-seguro {
+            background-color: #2ecc71;
+        }
+
+        .voltar-seguro:hover {
+            background-color: #27ae60;
+        }
+
+        .voltar-perigoso {
+            background-color: #e74c3c;
+        }
+
+        .voltar-perigoso:hover {
+            background-color: #c0392b;
         }
 
         /* Responsividade para tablets */
@@ -119,7 +136,8 @@
         <h1>NÃO LEU????</h1>
         <h2>Erro de usabilidade!</h2>
         <p>Você clicou no botão que não era para clicar!</p>
-        <a href="curioso.html" class="voltar">NÃO CLIQUE NESSE!!!</a>
+        <a href="index.html" class="voltar voltar-seguro">Voltar</a>
+        <a href="curioso.html" class="voltar voltar-perigoso">NÃO CLIQUE NESSE!!!</a>
     </div>
 </body>
 </html>

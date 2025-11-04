@@ -19,6 +19,8 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             padding: 20px;
+            overflow: hidden;
+            position: relative;
         }
 
         .container {
@@ -29,6 +31,8 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             max-width: 90%;
             width: 600px;
+            position: relative;
+            z-index: 10;
         }
 
         h1 {
@@ -60,6 +64,26 @@
         .voltar:hover {
             background-color: #3742fa;
             transform: scale(1.05);
+        }
+
+        /* Fogos de artifício */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
         }
 
         /* Responsividade para tablets */
@@ -105,5 +129,50 @@
         <p>Você foi selecionado como CURIOSO</p>
         <a href="index.html" class="voltar">Voltar</a>
     </div>
+
+    <script>
+        // Função para criar fogos de artifício
+        function createFirework(x, y) {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff1493'];
+            const particles = 30;
+            
+            for (let i = 0; i < particles; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                
+                const angle = (Math.PI * 2 * i) / particles;
+                const velocity = 100 + Math.random() * 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                firework.style.setProperty('--tx', tx + 'px');
+                firework.style.setProperty('--ty', ty + 'px');
+                
+                document.body.appendChild(firework);
+                
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }
+        }
+
+        // Criar fogos de artifício aleatórios
+        function randomFireworks() {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * (window.innerHeight * 0.7);
+            createFirework(x, y);
+        }
+
+        // Inicia os fogos de artifício
+        setInterval(randomFireworks, 800);
+        
+        // Fogos imediatos ao carregar
+        setTimeout(() => createFirework(window.innerWidth / 2, window.innerHeight / 3), 100);
+        setTimeout(() => createFirework(window.innerWidth / 3, window.innerHeight / 4), 300);
+        setTimeout(() => createFirework(window.innerWidth * 2 / 3, window.innerHeight / 4), 500);
+    </script>
 </body>
 </html>
